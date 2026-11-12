@@ -1,0 +1,3 @@
+minimumReleaseAgeExclude:
+  - vitest-environment-wasm-quickjs-dom@1.0.17
+  - wasm-quickjs-dom@1.0.17

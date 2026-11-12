@@ -1,6 +1,6 @@
 # vitest + React: wasm-quickjs-dom vs jsdom Benchmark Report
 
-Generated: 11/11/2026, 9:17:58 PM / Node v24.22.1 / win32 x64
+Generated: 11/12/2026, 9:17:23 AM / Node v24.22.1 / win32 x64
 AMD Ryzen 9 3900X 12-Core Processor             (24 threads, 95.9 GB)
 
 Results of running identical React tests and benchmarks across two Vitest environments (`jsdom` / `wasm-quickjs-dom`).
@@ -15,8 +15,8 @@ reporting median values across 2 repeats for React scenarios and 2 repeats for e
 | vitest | 5.1.0 |
 | vite | 8.3.8 |
 | jsdom | 31.0.0 |
-| wasm-quickjs-dom | 1.0.16 |
-| vitest-environment-wasm-quickjs-dom | 1.0.16 |
+| wasm-quickjs-dom | 1.0.17 |
+| vitest-environment-wasm-quickjs-dom | 1.0.17 |
 | react / react-dom | 19.3.1 / 19.3.1 |
 | @testing-library/react | 16.3.3 |
 | @testing-library/dom | 10.4.2 |
@@ -25,17 +25,17 @@ reporting median values across 2 repeats for React scenarios and 2 repeats for e
 
 ## Summary
 
-- React benchmarks (23 scenarios): **wasm-quickjs-dom slower: 10 / about the same: 4 / faster: 9**
-- Geometric mean across all scenarios: **wasm-quickjs-dom takes 0.92x the time of jsdom** (<1.00 means wasm is faster)
+- React benchmarks (23 scenarios): **wasm-quickjs-dom slower: 14 / about the same: 5 / faster: 4**
+- Geometric mean across all scenarios: **wasm-quickjs-dom takes 1.07x the time of jsdom** (<1.00 means wasm is faster)
 - Identical React tests (93 total): jsdom 93/93 passed, wasm-quickjs-dom 93/93 passed
-- Environment creation cost per test file: jsdom ~1516.5 ms / wasm-quickjs-dom ~224.3 ms
+- Environment creation cost per test file: jsdom ~1151.1 ms / wasm-quickjs-dom ~187.3 ms
 - Environment capability differences: 49 identical, **12 differing**
 
 ## Key Takeaways (Measured on this setup)
 
-- **wasm-quickjs-dom slower in 10 scenarios**: 1.15x–2.11x (median 1.38x). Particularly heavier in `fireEvent.input x50` (2.11x) / `fireEvent.click x100` (1.91x) / `render <Counter/>` (1.87x).
-- **wasm-quickjs-dom faster in 9 scenarios**: `unmount 1000 rows` (5.07x faster) / `read textContent of 1000 rows` (3.97x faster) / `querySelectorAll('.row') + iterate, 1000 rows` (3.07x faster) / `expect(...).toHaveTextContent on 1000 rows` (2.32x faster) / `update 100 rows (5 prop changes)` (1.78x faster) / `findByText (async query) on 300 cards` (1.26x faster) / `getByText on 300 cards` (1.25x faster) / `mount 100 rows` (1.16x faster) / `mount 1000 rows` (1.13x faster).
-- Geometric mean across all scenarios is **0.92x**. While individual tests may show a ~2x difference in either direction,
+- **wasm-quickjs-dom slower in 14 scenarios**: 1.17x–1.99x (median 1.42x). Particularly heavier in `fireEvent.input x50` (1.99x) / `render <Counter/>` (1.93x) / `fireEvent.click x100` (1.79x).
+- **wasm-quickjs-dom faster in 4 scenarios**: `unmount 1000 rows` (3.12x faster) / `read textContent of 1000 rows` (2.92x faster) / `expect(...).toHaveTextContent on 1000 rows` (2.47x faster) / `querySelectorAll('.row') + iterate, 1000 rows` (2.41x faster).
+- Geometric mean across all scenarios is **1.07x**. While individual tests may show a ~2x difference in either direction,
   the overall test suite execution time typically stays within a ~10% margin.
 
 Practical Guidance:
@@ -56,29 +56,29 @@ Median duration per scenario (ms). `wasm/jsdom` < 1.00 means wasm-quickjs-dom is
 
 | Scenario | jsdom (ms) | wasm-quickjs-dom (ms) | wasm/jsdom | Verdict | Samples |
 | --- | --- | --- | --- | --- | --- |
-| fireEvent.input x50 | 8.69 (0.174/op) | 18.33 (0.367/op) | 2.11x | wasm 2.11x slower | 10 |
-| fireEvent.click x100 | 20.97 (0.210/op) | 40.08 (0.401/op) | 1.91x | wasm 1.91x slower | 10 |
-| render <Counter/> | 5.01 (1.00/op) | 9.39 (1.88/op) | 1.87x | wasm 1.87x slower | 40 |
-| rerender 1000 rows | 115.8 (57.91/op) | 197.4 (98.70/op) | 1.70x | wasm 1.70x slower | 20 |
-| getByLabelText on 300 cards | 38.94 | 56.56 | 1.45x | wasm 1.45x slower | 10 |
-| mount 3000 rows | 561.0 | 774.1 | 1.38x | wasm 1.38x slower | 6 |
-| getByRole('button', {name}) on 300 cards | 72.87 | 93.04 | 1.28x | wasm 1.28x slower | 10 |
-| getAllByRole('link') on 300 cards | 51.92 | 65.87 | 1.27x | wasm 1.27x slower | 10 |
-| mount 1000 simple rows | 45.72 | 57.58 | 1.26x | wasm 1.26x slower | 10 |
-| userEvent.click x5 | 258.7 (51.75/op) | 298.3 (59.66/op) | 1.15x | wasm 1.15x slower | 6 |
-| userEvent.type 10 chars | 197.4 (19.74/op) | 211.6 (21.16/op) | 1.07x | about the same | 6 |
-| mount 100 rows under a context provider | 63.07 (21.02/op) | 67.11 (22.37/op) | 1.06x | about the same | 12 |
-| form fill + submit (userEvent) | 488.1 | 513.1 | 1.05x | about the same | 6 |
-| rerender <Counter/> x100 | 16.92 (0.169/op) | 17.24 (0.172/op) | 1.02x | about the same | 10 |
-| mount 1000 rows | 178.0 | 157.8 | 0.89x | wasm 1.13x faster | 10 |
-| mount 100 rows | 73.42 (24.47/op) | 63.53 (21.18/op) | 0.87x | wasm 1.16x faster | 16 |
-| getByText on 300 cards | 35.06 | 28.12 | 0.80x | wasm 1.25x faster | 12 |
-| findByText (async query) on 300 cards | 50.44 | 39.96 | 0.79x | wasm 1.26x faster | 10 |
-| update 100 rows (5 prop changes) | 35.10 (7.02/op) | 19.77 (3.95/op) | 0.56x | wasm 1.78x faster | 16 |
-| expect(...).toHaveTextContent on 1000 rows | 3.25 | 1.40 | 0.43x | wasm 2.32x faster | 10 |
-| querySelectorAll('.row') + iterate, 1000 rows | 15.93 | 5.19 | 0.33x | wasm 3.07x faster | 10 |
-| read textContent of 1000 rows | 3.05 | 0.768 | 0.25x | wasm 3.97x faster | 10 |
-| unmount 1000 rows | 21.70 | 4.28 | 0.20x | wasm 5.07x faster | 10 |
+| fireEvent.input x50 | 8.07 (0.161/op) | 16.09 (0.322/op) | 1.99x | wasm 1.99x slower | 10 |
+| render <Counter/> | 4.02 (0.803/op) | 7.77 (1.55/op) | 1.93x | wasm 1.93x slower | 40 |
+| fireEvent.click x100 | 19.47 (0.195/op) | 34.79 (0.348/op) | 1.79x | wasm 1.79x slower | 10 |
+| getByLabelText on 300 cards | 24.17 | 42.32 | 1.75x | wasm 1.75x slower | 10 |
+| getAllByRole('link') on 300 cards | 34.70 | 58.21 | 1.68x | wasm 1.68x slower | 10 |
+| mount 1000 rows | 100.4 | 149.3 | 1.49x | wasm 1.49x slower | 10 |
+| getByRole('button', {name}) on 300 cards | 52.09 | 74.81 | 1.44x | wasm 1.44x slower | 10 |
+| userEvent.type 10 chars | 138.6 (13.86/op) | 197.4 (19.74/op) | 1.42x | wasm 1.42x slower | 6 |
+| mount 3000 rows | 284.4 | 383.3 | 1.35x | wasm 1.35x slower | 6 |
+| mount 1000 simple rows | 39.25 | 52.85 | 1.35x | wasm 1.35x slower | 10 |
+| findByText (async query) on 300 cards | 29.29 | 37.14 | 1.27x | wasm 1.27x slower | 10 |
+| mount 100 rows | 45.05 (15.02/op) | 56.51 (18.84/op) | 1.25x | wasm 1.25x slower | 16 |
+| form fill + submit (userEvent) | 399.3 | 481.6 | 1.21x | wasm 1.21x slower | 6 |
+| mount 100 rows under a context provider | 51.58 (17.19/op) | 60.43 (20.14/op) | 1.17x | wasm 1.17x slower | 12 |
+| rerender 1000 rows | 75.40 (37.70/op) | 81.33 (40.67/op) | 1.08x | about the same | 20 |
+| rerender <Counter/> x100 | 15.57 (0.156/op) | 16.07 (0.161/op) | 1.03x | about the same | 10 |
+| userEvent.click x5 | 222.8 (44.56/op) | 215.9 (43.17/op) | 0.97x | about the same | 6 |
+| getByText on 300 cards | 23.33 | 22.31 | 0.96x | about the same | 12 |
+| update 100 rows (5 prop changes) | 17.57 (3.51/op) | 16.05 (3.21/op) | 0.91x | about the same | 16 |
+| querySelectorAll('.row') + iterate, 1000 rows | 10.13 | 4.21 | 0.42x | wasm 2.41x faster | 10 |
+| expect(...).toHaveTextContent on 1000 rows | 1.88 | 0.761 | 0.40x | wasm 2.47x faster | 10 |
+| read textContent of 1000 rows | 1.88 | 0.644 | 0.34x | wasm 2.92x faster | 10 |
+| unmount 1000 rows | 12.06 | 3.87 | 0.32x | wasm 3.12x faster | 10 |
 
 > Note: Absolute values depend on hardware. Compare using the `wasm/jsdom` column (relative ratio on the same machine).
 
@@ -104,9 +104,9 @@ Suite execution time (wall clock median) when running 8 identical minimal test f
 
 | Environment | Serial suite (ms) | Parallel suite (ms) | Diff vs node (ms) | Per file (ms) |
 | --- | --- | --- | --- | --- |
-| node (baseline) | 2465.2 | 942.5 | - | - |
-| jsdom | 14597.5 | 2788.2 | +12132.3 | 1516.5 |
-| wasm-quickjs-dom | 4259.4 | 1349.1 | +1794.1 | 224.3 |
+| node (baseline) | 2220.0 | 834.0 | - | - |
+| jsdom | 11429.1 | 2456.1 | +9209.1 | 1151.1 |
+| wasm-quickjs-dom | 3718.3 | 1185.8 | +1498.3 | 187.3 |
 
 > The serial difference primarily reflects the cost of recreating the environment per test file (Vitest isolates tests by default,
 > running environment setup and importing the environment package for each file).
@@ -118,13 +118,13 @@ Median wall-clock time running the same test suite (all files / tests) across 2 
 
 | Environment | Serial 1 worker (ms) | Parallel (default) (ms) |
 | --- | --- | --- |
-| jsdom | 29942.9 | 5546.3 |
-| wasm-quickjs-dom | 15969.2 | 3778.9 |
-| wasm/jsdom | 0.53x | 0.68x |
+| jsdom | 24053.1 | 4699.5 |
+| wasm-quickjs-dom | 13113.3 | 3251.4 |
+| wasm/jsdom | 0.55x | 0.69x |
 
 All 93 tests produced identical results (passed) in both environments.
 
-Total duration of test bodies (reference only, includes warm-up): jsdom ~3176.5 ms / wasm-quickjs-dom ~3092.6 ms (wasm/jsdom 0.97x)
+Total duration of test bodies (reference only, includes warm-up): jsdom ~2824.2 ms / wasm-quickjs-dom ~2737.2 ms (wasm/jsdom 0.97x)
 
 > Individual test durations are heavily influenced by execution order within the file (the first test bears the cost
 > of module and React initialization), so per-test ratios should not be interpreted in isolation.

@@ -17,15 +17,15 @@
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.8",
+    "@testing-library/user-event": "^14.6.9",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "jsdom": "^31.0.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "vitest": "^5.1.0",
-    "vitest-environment-wasm-quickjs-dom": "^1.0.16",
-    "wasm-quickjs-dom": "^1.0.16"
+    "vitest-environment-wasm-quickjs-dom": "^1.0.17",
+    "wasm-quickjs-dom": "^1.0.17"
   },
   "main": "index.js",
   "repository": "https://github.com/SoraKumo001/wasm-quickjs-dom-vitest-react-compare",

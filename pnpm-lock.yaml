@@ -18,7 +18,7 @@ importers:
         specifier: ^16.3.3
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@testing-library/user-event':
-        specifier: ^14.6.8
+        specifier: ^14.6.9
         version: 14.6.9(@testing-library/dom@10.4.2)
       '@types/react':
         specifier: ^19.3.0
@@ -39,11 +39,11 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(jsdom@31.0.0)(vite@8.3.7)
       vitest-environment-wasm-quickjs-dom:
-        specifier: ^1.0.16
-        version: 1.0.16(vitest@5.1.0(jsdom@31.0.0)(vite@8.3.7))
+        specifier: ^1.0.17
+        version: 1.0.17(vitest@5.1.0(jsdom@31.0.0)(vite@8.3.7))
       wasm-quickjs-dom:
-        specifier: ^1.0.16
-        version: 1.0.16
+        specifier: ^1.0.17
+        version: 1.0.17
 
 packages:
 
@@ -604,8 +604,8 @@ packages:
       yaml:
         optional: true
 
-  vitest-environment-wasm-quickjs-dom@1.0.16:
-    resolution: {integrity: sha512-yIb/KD0hfI4m4qAxwk/HFFtQKtx5XwL587LpHkbKRPchrWxM8NFiKeo6qvNwLDkiZAwLpQJ5M3ECddldMtF+aA==}
+  vitest-environment-wasm-quickjs-dom@1.0.17:
+    resolution: {integrity: sha512-SwoUV405FCApVNcS4KiORgOjAJX1dPWfZ7ZoTf47qDF66nGrzADE0Nue88HfRdXPOMcPuelMpOrUBSwOo86Dhw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       vitest: '>=2.0.0'
@@ -655,8 +655,8 @@ packages:
     resolution: {integrity: sha512-4Nsy8K5Tr6SPDH9jhKJOHf7ChDrc1zufZTVSF7x72hwuEXBqxqk9G6cK+K2NRUtB3iELRJqjXb4JPDMBjMTl2Q==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
-  wasm-quickjs-dom@1.0.16:
-    resolution: {integrity: sha512-kl8FZAfWYRYydckwvCS2rVolAmOnnRD1QJIpseJEJpAGo/cdosDJAaWvin1OniIthLBvusMy/XZ8fN2cNgbEEg==}
+  wasm-quickjs-dom@1.0.17:
+    resolution: {integrity: sha512-j3mdZMFmJBldXwjeamkG/PyDvYtHnhIzk5/Szly4KxYhJetqYk6ma6vPPprrctaxPXQ4wo3oSDP2baI8FH+nww==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -1102,10 +1102,10 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vitest-environment-wasm-quickjs-dom@1.0.16(vitest@5.1.0(jsdom@31.0.0)(vite@8.3.7)):
+  vitest-environment-wasm-quickjs-dom@1.0.17(vitest@5.1.0(jsdom@31.0.0)(vite@8.3.7)):
     dependencies:
       vitest: 5.1.0(jsdom@31.0.0)(vite@8.3.7)
-      wasm-quickjs-dom: 1.0.16
+      wasm-quickjs-dom: 1.0.17
 
   vitest@5.1.0(jsdom@31.0.0)(vite@8.3.7):
     dependencies:
@@ -1132,7 +1132,7 @@ snapshots:
     dependencies:
       xml-name-validator: 5.0.0
 
-  wasm-quickjs-dom@1.0.16: {}
+  wasm-quickjs-dom@1.0.17: {}
 
   webidl-conversions@8.0.1: {}
 
