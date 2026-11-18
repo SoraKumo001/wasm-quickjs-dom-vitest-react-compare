@@ -24,8 +24,8 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "vitest": "^5.1.1",
-    "vitest-environment-wasm-quickjs-dom": "^1.0.17",
-    "wasm-quickjs-dom": "^1.0.17"
+    "vitest-environment-wasm-quickjs-dom": "^1.0.18",
+    "wasm-quickjs-dom": "^1.0.18"
   },
   "main": "index.js",
   "repository": "https://github.com/SoraKumo001/wasm-quickjs-dom-vitest-react-compare",
