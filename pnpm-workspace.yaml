@@ -1,6 +1,9 @@
 minimumReleaseAgeExclude:
-  - vitest-environment-wasm-quickjs-dom@1.0.17 || 1.0.18
-  - wasm-quickjs-dom@1.0.17 || 1.0.18
+  - vitest-environment-wasm-quickjs-dom@1.0.17 || 1.0.18 || 1.0.19
+  - wasm-quickjs-dom@1.0.17 || 1.0.18 || 1.0.19
+  - wasm-html-to-image@1.4.1 || 1.4.2
   - '@vitest/mocker@5.1.1'
   - '@vitest/spy@5.1.1'
   - vitest@5.1.1
+  - '@testing-library/jest-dom@8.0.0'
+  - '@testing-library/user-event@14.6.13'
